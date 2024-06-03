@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -18,7 +20,6 @@ public class NivelAcesso {
     @Column(nullable = false)
     private String tip;
 
-    @ManyToOne
-    @JoinColumn(name="Usuario_id")
-    private Usuario usuario;
+    @ManyToMany
+    private List<Usuario> usuarios;
 }

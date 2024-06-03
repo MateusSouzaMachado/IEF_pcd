@@ -18,7 +18,4 @@ public class Categoria {
     @Column(nullable = false)
     private String tip;
 
-    @ManyToOne
-    @JoinColumn(name="Deficiencia_id")
-    private Deficiencia deficiencia;
 }

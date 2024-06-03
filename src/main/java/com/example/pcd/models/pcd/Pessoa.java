@@ -7,6 +7,7 @@ import lombok.Setter;
 import com.example.pcd.models.localizacao.Endereco;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,7 +22,7 @@ public class Pessoa {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true, length = 14)
     private String cpf;
 
     @Column(nullable = false)
@@ -36,4 +37,10 @@ public class Pessoa {
     @Column(nullable = false)
     private Date data_nascimento;
 
+    @ManyToOne
+    @JoinColumn(name="Endereco_id")
+    private Endereco endereco;
+
+    @ManyToMany
+    private List<Deficiencia> deficiencias;
 }

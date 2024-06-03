@@ -19,6 +19,6 @@ public class Deficiencia {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name="Pessoa_id")
-    private Pessoa pessoa;
+    @JoinColumn(name="Categoria_id")
+    private Categoria categoria;
 }

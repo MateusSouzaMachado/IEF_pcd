@@ -20,22 +20,14 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true, length = 14)
     private String cpf;
 
     @Column(name = "ativo", nullable = true)
     @ColumnDefault("true")
     private boolean ativo = true;
-
-    @ManyToOne
-    @JoinColumn(name="NivelAcesso_id")
-    private NivelAcesso nivelAcesso;
-
-    @OneToOne
-    @JoinColumn(name="Noticia_id")
-    private Noticia noticia;
 
 }

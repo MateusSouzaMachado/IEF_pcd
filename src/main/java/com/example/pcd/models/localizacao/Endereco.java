@@ -22,15 +22,11 @@ public class Endereco {
     @Column(nullable = false)
     private int numero;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 8)
     private String cep;
 
     @ManyToOne
     @JoinColumn(name="Bairro_id")
     private Bairro bairro;
-
-    @ManyToOne
-    @JoinColumn(name="Pessoa_id")
-    private Pessoa pessoa;
 
 }
