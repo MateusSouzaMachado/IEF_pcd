@@ -21,4 +21,6 @@ public class Deficiencia {
     @ManyToOne
     @JoinColumn(name="Categoria_id")
     private Categoria categoria;
+
+
 }

@@ -1,4 +1,4 @@
-package repository;
+package com.example.pcd.repository;
 
 import com.example.pcd.models.usuario.NivelAcesso;
 import org.springframework.data.jpa.repository.JpaRepository;

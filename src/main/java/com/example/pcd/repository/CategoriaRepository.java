@@ -1,4 +1,4 @@
-package repository;
+package com.example.pcd.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.pcd.models.pcd.Categoria;

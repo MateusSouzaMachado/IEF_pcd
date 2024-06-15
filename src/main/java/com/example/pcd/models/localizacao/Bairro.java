@@ -18,8 +18,7 @@ public class Bairro {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name="Cidade_id")
-    private Cidade cidade;
-
+    public Bairro(String nome){
+        this.nome = nome;
+    }
 }

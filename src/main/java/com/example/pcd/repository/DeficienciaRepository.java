@@ -1,4 +1,4 @@
-package repository;
+package com.example.pcd.repository;
 
 import com.example.pcd.models.pcd.Deficiencia;
 import org.springframework.data.jpa.repository.JpaRepository;

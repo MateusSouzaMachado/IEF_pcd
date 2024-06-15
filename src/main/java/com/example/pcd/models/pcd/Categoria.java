@@ -16,6 +16,9 @@ public class Categoria {
     private Long id;
 
     @Column(nullable = false)
-    private String tip;
+    private String tipo;
 
+    public Categoria(String tipo){
+        this.tipo = tipo;
+    }
 }
