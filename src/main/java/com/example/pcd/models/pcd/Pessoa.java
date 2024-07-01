@@ -43,4 +43,8 @@ public class Pessoa {
 
     @ManyToMany
     private List<Deficiencia> deficiencias;
+
+    public  Pessoa(String nome){
+        this.nome=nome;
+    }
 }
