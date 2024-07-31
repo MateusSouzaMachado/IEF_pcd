@@ -28,8 +28,10 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping ("/pessoa")
-    public String index(Model model){
-        List<Pessoa> pessoas = pessoaRepository.findByAtivo(true);
+    public String index(Model model, @RequestParam("display") Optional<String> display){
+        String finalDisplay = display.orElse("true");
+        
+        List<Pessoa> pessoas = pessoaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
 
         model.addAttribute("pessoas", pessoas);
 
