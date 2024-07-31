@@ -111,10 +111,15 @@ public class PessoaController {
         Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
         Pessoa pessoaModel = pessoa.get();
 
-        pessoaModel.setAtivo(false);
+        if (pessoaModel.isAtivo()) {
+            pessoaModel.setAtivo(false);
+            redirectAttributes.addFlashAttribute("successMessage", "Excluído com Sucesso!");
+        }else{
+            pessoaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage", "Recuperado com Sucesso!");
+        }
+        
         this.pessoaRepository.save(pessoaModel);
-
-        redirectAttributes.addFlashAttribute("successMessage", "Excluído com Sucesso!");
 
         return "redirect:/pessoa";
     }
