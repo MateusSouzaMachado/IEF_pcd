@@ -70,15 +70,18 @@
     <script>
         $("#cep").inputmask("99999-999")
         .on('change', function(){
-            let cep = $("cep").val();
+            let cep = $("#cep").val();
             cep.replace("-","");
 
             $.ajax({
                 dataType: "json",
                 type: "get",
                 url: "https://viacep.com.br/ws/" + cep + "/json/",
-                success: function(data){
-                    console.log(response);
+                success: function(response){
+                    $("#uf").val(response['uf']);
+                    $("#bairro").val(response['bairro']);
+                    $("#logradouro").val(response['logradouro']);
+                    $("#cidade").val(response['localidade']);
                 }
             });
         });
