@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Pessoa;
+import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.PessoaRepository;
 
 import jakarta.validation.Valid;
@@ -27,27 +28,35 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    @GetMapping ("/pessoa")
+    @Autowired
+    private DeficienciaRepository deficienciaRepository;
+
+    @GetMapping("/pessoa")
     public String index(Model model, @RequestParam("display") Optional<String> display){
         String finalDisplay = display.orElse("true");
-        
+
         List<Pessoa> pessoas = pessoaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
 
         model.addAttribute("pessoas", pessoas);
 
         return "pessoa/listar";
     }
-    
 
     @GetMapping("/pessoa/create")
     public String create(Model model) {
-        model.addAttribute("pessoaForm", new PessoaForm());
+        PessoaForm pessoaForm = new PessoaForm();
+        pessoaForm.setDeficiencias(deficienciaRepository);
+
+        model.addAttribute("pessoaForm", pessoaForm);
 
         return "pessoa/create";
     }
     
     @PostMapping("/pessoa/create")
     public String create(@Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        pessoaForm.setDeficiencias(deficienciaRepository);
+
+        model.addAttribute("pessoaForm", pessoaForm);
         
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
@@ -83,7 +92,7 @@ public class PessoaController {
 
         return "/pessoa/visualizar";
     }
-
+    
     @PostMapping("/pessoa/update/{id}")
     public String update(
         @PathVariable Long id, 
@@ -112,15 +121,19 @@ public class PessoaController {
         Pessoa pessoaModel = pessoa.get();
 
         if (pessoaModel.isAtivo()) {
-            pessoaModel.setAtivo(false);
-            redirectAttributes.addFlashAttribute("successMessage", "Excluído com Sucesso!");
+            pessoaModel.setAtivo(false);    
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Excluído com sucesso!");
         }else{
             pessoaModel.setAtivo(true);
-            redirectAttributes.addFlashAttribute("successMessage", "Recuperado com Sucesso!");
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Recuperado com sucesso!");
         }
         
         this.pessoaRepository.save(pessoaModel);
-
-        return "redirect:/pessoa";
+        
+        return "redirect:/pessoa";        
     }
+    
+    
 }

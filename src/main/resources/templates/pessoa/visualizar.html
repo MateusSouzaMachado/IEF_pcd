@@ -2,26 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: layout}">
-<body th:fragment="content">
-    <div class="card mt-2">
-        <div class="card-header">
-            <h3 class="card-title">Formulário de Visualização</h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome:</label>
-                    <input  disabled type="text" id="nome" th:field="${pessoaForm.nome}" class="form-control">
+    <body th:fragment="content">     
+        
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h3 class="card-title">Formulário de Visualização</h3>
                 </div>
-                <div class="mb-3 col-md-3">
-                    <label for="nascimento" class="form-label">Data de Nascimento:</label>
-                    <input  disabled type="date" id="nascimento" th:field="${pessoaForm.nascimento}" class="form-control">
+                <div class="card-body">                    
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input disabled type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="${pessoaForm.nome}" class="form-control">
+                        
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="card-footer d-flex justify-content-between">
-            <a href="/pessoa" class="btn btn-secondary"> Voltar</a>
-        </div>
-    </div>
-</body>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/pessoa" class="btn btn-secondary">Voltar</a>
+                </div>
+            </div>   
+    
+    </body>
 </html>
