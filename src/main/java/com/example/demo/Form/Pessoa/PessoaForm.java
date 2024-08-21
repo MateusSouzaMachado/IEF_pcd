@@ -16,9 +16,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Getter
+@Setter
 @NoArgsConstructor
 public class PessoaForm {
 
@@ -47,20 +49,10 @@ public class PessoaForm {
     private String numero;
     private String complemento;
 
-    public Pessoa toEntity(){
-        Sexo sexo = Sexo.fromCodigo(this.sexo);
-        Pessoa pessoa = new Pessoa(nome, nascimento, sexo);
-        pessoa.setDeficiencia(deficiencia);
-
-        return pessoa;
-    }
 
 
     public PessoaForm(Pessoa pessoa){
         this.nome = pessoa.getNome();
     }
 
-    public void setDeficiencias(DeficienciaRepository repository){
-        this.listDeficiencias = repository.findAll();
-    }
 }
