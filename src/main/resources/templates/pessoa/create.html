@@ -58,6 +58,14 @@
                                 <label for="logradouro" class="form-label">Logradouro:</label>
                                 <input id="logradouro" readonly th:field="*{logradouro}" class="form-control">
                             </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="numero" class="form-label">Número:</label>
+                                <input type="text" id="numero" th:field="*{numero}" class="form-control">
+                            </div>
+                            <div class="mb-3 col-md-10">
+                                <label for="complemento" class="form-label">Complemento:</label>
+                                <input type="text" id="complemento" th:field="*{complemento}" class="form-control">
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
@@ -92,6 +100,8 @@
                             $("#logradouro").attr("readonly",true)
                             document.getElementById("logradouro").value = response['logradouro'];
                         }
+
+
 
                         $("#uf").val(response['uf']);
                         $("#cidade").val(response['localidade']);

@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 
@@ -29,6 +30,11 @@ public class Deficiencia {
 
     @Column(nullable = false)
     private String nome;
+
+    @Column(name = "ativo", nullable = false)
+    @ColumnDefault("true")
+    private boolean ativo = true;
+
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.Model.Deficiencia;
+import com.example.demo.Service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,9 @@ public class PessoaController {
 
     @Autowired
     private DeficienciaRepository deficienciaRepository;
+
+    @Autowired
+    private PessoaService pessoaService;
 
     @GetMapping("/pessoa")
     public String index(Model model, @RequestParam("display") Optional<String> display){
@@ -67,8 +71,8 @@ public class PessoaController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
-      //  pessoaRepository.save(pessoaForm.toEntity());
-        
+        pessoaService.create(pessoaForm);
+
         return "redirect:/pessoa";
     }
 
