@@ -80,10 +80,13 @@ public class PessoaController {
     public String update(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+        PessoaForm pessoaForm = new PessoaForm(pessoa.orElseThrow());
+
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
-        model.addAttribute("id", pessoa.get().getId());
+        model.addAttribute("id", pessoa.orElseThrow().getId());
 
         return "/pessoa/update";
     }
@@ -93,6 +96,9 @@ public class PessoaController {
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
         PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
         model.addAttribute("id", pessoa.get().getId());
@@ -108,16 +114,20 @@ public class PessoaController {
         Model model, 
         RedirectAttributes redirectAttributes
     ){
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
+
+        model.addAttribute("pessoaForm", pessoaForm);
+
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "/pessoa/update";
         }
 
-       // Pessoa pessoa = pessoaForm.toEntity();
-       // pessoa.setId(id);
+        pessoaService.update(pessoaForm, id);
+
 
         redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
-        //this.pessoaRepository.save(pessoa);
 
         return "redirect:/pessoa";
     }
