@@ -42,6 +42,10 @@ public class Pessoa {
     @JoinColumn(name = "deficiencia_id")
     private Deficiencia deficiencia;
 
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
     public Pessoa(String nome, LocalDate nascimento, Sexo sexo){
         this.nome = nome;
         this.nascimento = nascimento;

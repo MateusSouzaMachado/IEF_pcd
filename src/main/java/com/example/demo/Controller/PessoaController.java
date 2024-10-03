@@ -3,6 +3,8 @@ package com.example.demo.Controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.Model.Deficiencia;
+import com.example.demo.Service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,9 @@ public class PessoaController {
     @Autowired
     private DeficienciaRepository deficienciaRepository;
 
+    @Autowired
+    private PessoaService pessoaService;
+
     @GetMapping("/pessoa")
     public String index(Model model, @RequestParam("display") Optional<String> display){
         String finalDisplay = display.orElse("true");
@@ -45,7 +50,8 @@ public class PessoaController {
     @GetMapping("/pessoa/create")
     public String create(Model model) {
         PessoaForm pessoaForm = new PessoaForm();
-        pessoaForm.setDeficiencias(deficienciaRepository);
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
 
@@ -54,7 +60,8 @@ public class PessoaController {
     
     @PostMapping("/pessoa/create")
     public String create(@Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-        pessoaForm.setDeficiencias(deficienciaRepository);
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
         
@@ -64,8 +71,8 @@ public class PessoaController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
-        pessoaRepository.save(pessoaForm.toEntity());
-        
+        pessoaService.create(pessoaForm);
+
         return "redirect:/pessoa";
     }
 
@@ -73,10 +80,13 @@ public class PessoaController {
     public String update(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+        PessoaForm pessoaForm = new PessoaForm(pessoa.orElseThrow());
+
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
-        model.addAttribute("id", pessoa.get().getId());
+        model.addAttribute("id", pessoa.orElseThrow().getId());
 
         return "/pessoa/update";
     }
@@ -86,6 +96,9 @@ public class PessoaController {
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
         PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
 
         model.addAttribute("pessoaForm", pessoaForm);
         model.addAttribute("id", pessoa.get().getId());
@@ -101,16 +114,20 @@ public class PessoaController {
         Model model, 
         RedirectAttributes redirectAttributes
     ){
+        List<Deficiencia> listaDeficiencia = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencia);
+
+        model.addAttribute("pessoaForm", pessoaForm);
+
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "/pessoa/update";
         }
 
-        Pessoa pessoa = pessoaForm.toEntity();
-        pessoa.setId(id);
+        pessoaService.update(pessoaForm, id);
+
 
         redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
-        this.pessoaRepository.save(pessoa);
 
         return "redirect:/pessoa";
     }
