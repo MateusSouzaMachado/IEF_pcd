@@ -29,10 +29,8 @@ public class PessoaController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
-
     @Autowired
     private DeficienciaRepository deficienciaRepository;
-
     @Autowired
     private PessoaService pessoaService;
 
