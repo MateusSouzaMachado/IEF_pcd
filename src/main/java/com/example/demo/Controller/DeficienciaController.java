@@ -67,7 +67,7 @@ public class DeficienciaController {
         redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
         deficienciaService.create(deficienciaForm);
 
-        return "redirect:/defciciencia";
+        return "redirect:/deficiencia";
     }
 
     @GetMapping("/deficiencia/update/{id}")
