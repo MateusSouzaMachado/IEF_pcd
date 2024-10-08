@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: layout}">
 <body th:fragment="content">
-<form th:action="@{/pessoa/update/{id}(id=${id})}" th:object="${deficienciaForm}" method="post">
+<form th:action="@{/deficiencia/update/{id}(id=${id})}" th:object="${deficienciaForm}" method="post">
     <div class="card mt-2">
         <div class="card-header">
             <h3 class="card-title">Formulário de Alteração</h3>
@@ -11,9 +11,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="mb-3">
-                    <label for="tipo" class="form-label">Nome:</label>
-                    <input type="text" id="tipo" placeholder="Ex.: Transtorno Bipolar" th:field="*{tipo}" class="form-control">
-                    <div th:if="${errors != null && #fields.hasErrors('tipo')}" th:errors="*{tipo}"></div>
+                    <label for="nome" class="form-label">Deficiência:</label>
+                    <input type="nome" id="nome" placeholder="Ex.: Transtorno Bipolar" th:field="*{nome}" class="form-control">
+                    <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                 </div>
                 <div class="mb-3 col-md-3">
                     <label for="categoria" class="form-label">Categoria:</label>
